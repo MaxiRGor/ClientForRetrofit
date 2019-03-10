@@ -2,25 +2,88 @@
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 
 public class Main {
 
-    /*
-    Вопросы: id, тема, текст вопроса, ответ 1, ответ 2, ответ 3, ответ 4, правильный ответ. Создать массив объектов. Вывести:
-
-    a) все вопросы по теме
-    b) один вопрос по теме
-    c) самый частый правильный ответ
-    */
-
     public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            System.out.println(" id? = ");
+            int lvl = in.nextInt();
+
+            System.out.println("ans? = ");
+            int ans = in.nextInt();
+            //getInfo(lvl);
+            upAns(lvl, ans);
+        }
+
+
+    }
+
+    private static void upAns(int id_answer, int user_answer) {
+
+        NetworkService.getInstance().getJSONApi().updateAnswer(id_answer, user_answer).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                System.out.println("maybe updated");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                System.out.println("MISTAKE");
+            }
+        });
+    }
+
+    private static void getInfo(int level) {
+        NetworkService.getInstance().getJSONApi().getByLevel(level).enqueue(new Callback<List<Question>>() {
+            @Override
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+                List<Question> questions = response.body();
+                if (questions != null) {
+                    for (Question question : questions) {
+                        System.out.println(question.getAll());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Question>> call, Throwable throwable) {
+                System.out.println("No");
+            }
+        });
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
         Selection selection = new Selection();
         Question questions[] = new Question[25];
@@ -104,7 +167,7 @@ public class Main {
                 System.out.println("ERROR OCCURED");
             }
         });
-*/
+
 
 
         NetworkService.getInstance().getJSONApi().getAllPosts()
@@ -128,14 +191,54 @@ public class Main {
 
                     }
                 });
+*/
 
 
+/*
+        NetworkService.getInstance().getJSONApi().getUser().enqueue(new Callback<DemoUser>() {
+            @Override
+            public void onResponse(Call<DemoUser> call, Response<DemoUser> response) {
+                DemoUser demoUser = response.body();
+                System.out.println(demoUser.getId());
+                System.out.println(demoUser.getContent());
+            }
+
+            @Override
+            public void onFailure(Call<DemoUser> call, Throwable throwable) {
+                System.out.println("Oops");
+            }
+        });
 
 
+        NetworkService.getInstance().getJSONApi().getNamedUser("Max").enqueue(new Callback<DemoUser>() {
+            @Override
+            public void onResponse(Call<DemoUser> call, Response<DemoUser> response) {
+                DemoUser demoUser = response.body();
+                System.out.println(demoUser.getId());
+                System.out.println(demoUser.getContent());
+            }
+
+            @Override
+            public void onFailure(Call<DemoUser> call, Throwable throwable) {
+                System.out.println("Oops");
+            }
+        });
 
 
+        NetworkService.getInstance().getJSONApi().getAllQuestions().enqueue(new Callback<List<Question>>() {
+            @Override
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+                List<Question> questions = response.body();
+                if(questions!=null){
+                    for (Question question:questions) {
+                        System.out.println(question.getAll());
+                    }
+                }
+            }
 
-    }
-}
-
-
+            @Override
+            public void onFailure(Call<List<Question>> call, Throwable throwable) {
+                System.out.println("No");
+            }
+        });
+        */

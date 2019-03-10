@@ -1,39 +1,58 @@
-import java.util.Random;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Question {
+    @SerializedName("id_question")
+    @Expose
+    private int id_question;
 
-    protected int ID;
-    public String THEME;
-    private String TEXT;
-    private String ANSWERS[];
-    protected int RIGHT;
-    private Random random;
+    @SerializedName("question_text")
+    @Expose
+    private String question_text;
 
-    protected String[] stackTheme = {"logic", "heroes", "location", "color", "relationship"};
-    protected String[] stackText = {"TEXT?", "TEXTTEXT??", "TEXTTEXTTEXT???", "TEXTTEXTTEXTTEXT????", "TEXTTEXTTEXTTEXTTEXT?????"};
-    protected int[] stackAnswer = {1, 2, 3, 4};
+    @SerializedName("answer_one")
+    @Expose
+    private String answer_one;
 
-    Question() {
-        random = new Random();
-        THEME = stackTheme[random.nextInt(stackTheme.length)];
-        TEXT = stackText[random.nextInt(stackText.length)];
-        ANSWERS = new String[]{"FIRST", "SECOND", "THIRD", "FOURTH"};
-        RIGHT = stackAnswer[random.nextInt(stackAnswer.length)];
+    @SerializedName("answer_two")
+    @Expose
+    private String answer_two;
+
+    @SerializedName("answer_three")
+    @Expose
+    private String answer_three;
+
+    @SerializedName("answer_four")
+    @Expose
+    private String answer_four;
+
+
+    public int getId_question() {
+        return id_question;
     }
 
-    Question(String string) {
+    public String getQuestion_text() {
+        return question_text;
     }
 
-    protected void show() {
-        System.out.println();
-        System.out.print("  ID: " + ID + "  ");
-        System.out.print("  THEME: " + THEME + "  ");
-        System.out.print("  TEXT: " + TEXT + "  ");
-        System.out.print("  ANSWERS: ");
-        for(int i = 0; i<ANSWERS.length;i++){
-            System.out.print(ANSWERS[i] + " ");
-        }
-        System.out.print("  RIGHT: " + RIGHT + "  ");
+    public String getAnswer_one() {
+        return answer_one;
     }
 
+    public String getAnswer_two() {
+        return answer_two;
+    }
+
+    public String getAnswer_three() {
+        return answer_three;
+    }
+
+    public String getAnswer_four() {
+        return answer_four;
+    }
+
+    public String getAll() {
+        return String.valueOf(getId_question()) + getQuestion_text() +
+                getAnswer_one() + getAnswer_two() + getAnswer_three() + getAnswer_four();
+    }
 }

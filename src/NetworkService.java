@@ -5,15 +5,18 @@ public class NetworkService {
 
     private static NetworkService mInstance;
 
-    private static final String BASE_URL = "https://jsonplaceholder.typicode.com";
+    //private static final String BASE_URL = "https://jsonplaceholder.typicode.com";
+
+    private static final String BASE_URL = "https://graphite-sphere-233617.appspot.com";
+
     private Retrofit mRetrofit;
+
     private NetworkService() {
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
-
 
 
     public static NetworkService getInstance() {
@@ -23,7 +26,7 @@ public class NetworkService {
         return mInstance;
     }
 
-    public JSONPlaceHolderApi getJSONApi(){
+    public JSONPlaceHolderApi getJSONApi() {
         return mRetrofit.create(JSONPlaceHolderApi.class);
     }
 }
